@@ -6,6 +6,7 @@ from datetime import timedelta
 from random import choice
 
 # Third party imports
+from qtpy import QtCore
 from qtpy.QtCore import Signal, Slot
 from qtpy.QtGui import QFont, QPixmap, QIcon
 from qtpy.QtWidgets import (QMainWindow, QApplication, QLineEdit, QVBoxLayout,
@@ -15,11 +16,16 @@ import qdarkstyle
 
 VER = "0.0.01"
 
+# enable highdpi scaling
+QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+QApplication.setAttribute(
+    QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
+
 
 class VLine(QFrame):
     def __init__(self):
         super().__init__()
-        self.setFrameShape(self.VLine|self.Sunken)
+        self.setFrameShape(self.VLine | self.Sunken)
 
 
 class ManageTyping:
@@ -37,7 +43,7 @@ class ManageTyping:
         self.char_candidate = list("0123456789;:\"'[]/?<>|.,\\!@#$%^&*()_-+=")
 
         self.new_game()
-    
+
     def new_game(self):
         """새로운 연습 문장을 만든다."""
         self.start_time = None
@@ -57,8 +63,8 @@ class ManageTyping:
         if self.n_repeat == 0:
             return 0
         else:
-            elapsed = (self.n_repeat 
-                       * self.n_char_in_game 
+            elapsed = (self.n_repeat
+                       * self.n_char_in_game
                        / self.elapsed_time_total)
             return elapsed
 
@@ -82,7 +88,7 @@ class ManageTyping:
                 err.append(" " * (self.n_space_between_chars + 1))
             else:
                 err.append("▲")
-        
+
         if err:
             err_str = "".join(err)
 
@@ -92,7 +98,7 @@ class ManageTyping:
         if self.start_time is None:
             self.start_time = time.time()
 
-    def str_of_total_time(self):  
+    def str_of_total_time(self):
         """총 연습 시간을 시분초로 반환한다."""
         diff_time = timedelta(seconds=self.elapsed_time_total)
         mm, ss = divmod(diff_time.seconds, 60)
@@ -144,7 +150,7 @@ class MainWindowTyping(QMainWindow):
 
     def setup_lineedit(self):
         """LineEdit를 설정한다."""
-        mask = (("X" + " " * self.typing.n_space_between_chars) 
+        mask = (("X" + " " * self.typing.n_space_between_chars)
                 * self.typing.n_char_in_game)
         self.line_for_number.setInputMask(mask)
         self.line_for_typing.setInputMask(mask)
@@ -157,7 +163,7 @@ class MainWindowTyping(QMainWindow):
             "QLineEdit { border:none; color: red; }")
 
         self.line_for_typing.textChanged.connect(self.update_typing)
-    
+
     def display_result(self):
         """연습결과를 보여준다."""
         typing_per_sec = self.typing.typing_per_sec_prev()
@@ -165,7 +171,7 @@ class MainWindowTyping(QMainWindow):
 
         self.statusBar().showMessage(
             f'현재타수 : {typing_per_sec:.1f}타/초')
-        
+
         self.label_typing_avg.setText(
             f'평균타수 : {typing_per_sec_avg:.1f}타/초')
 
@@ -182,7 +188,7 @@ class MainWindowTyping(QMainWindow):
 
         self.line_for_typing.setFocus()
         self.display_result()
-    
+
     def update_typing(self):
         """Typing 정보를 갱신한다."""
         typing = self.typing
