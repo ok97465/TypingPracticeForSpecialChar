@@ -2,4 +2,4 @@
 
 VIM을 효율적으로 사용하기 위해서는 특수문자와 숫자를 자주 눌러야 한다. VIM의 사용법을 익히면서 특수문자, 숫자의 키보드 위치를 동시에 외우는 것은 쉽지 않았다. 그래서 간단한 특수문자 및 숫자 타자연습 프로그램을 작성하였다.
 
-<img src="images/main.png?raw=true" alt="ScreenShot" width="420"/>
+<img src="images/main.png?raw=true" alt="ScreenShot" width="720"/>
