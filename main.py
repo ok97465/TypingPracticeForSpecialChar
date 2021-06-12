@@ -115,7 +115,7 @@ class MainWindowTyping(QMainWindow):
         self.setWindowTitle(f"Typing Number - {VER}")
 
         icon = QIcon()
-        icon.addPixmap(QPixmap(r'ok_64x64.ico'), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap('keyboard.ico'), QIcon.Normal, QIcon.Off)
         self.setWindowIcon(icon)
         self.setMinimumSize(800, 100)
 
